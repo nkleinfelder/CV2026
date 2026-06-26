@@ -1,0 +1,68 @@
+{
+  "best_model": "mobilenetv4_conv_medium",
+  "test_metrics": {
+    "resnet18": {
+      "loss": 0.03413842960350369,
+      "mae_deg": 4.999233245849609,
+      "median_ae_deg": 1.6100258827209473,
+      "rmse_deg": 22.889217376708984,
+      "axial_mae_deg": 2.153587818145752,
+      "acc15_deg": 97.98349738121033,
+      "acc30_deg": 98.28824400901794,
+      "acc45_deg": 98.33012819290161
+    },
+    "resnet50": {
+      "loss": 0.033721148651227356,
+      "mae_deg": 5.008839130401611,
+      "median_ae_deg": 1.6453652381896973,
+      "rmse_deg": 22.750009536743164,
+      "axial_mae_deg": 2.1968064308166504,
+      "acc15_deg": 98.04409146308899,
+      "acc30_deg": 98.33101630210876,
+      "acc45_deg": 98.36398363113403
+    },
+    "convnext_tiny": {
+      "loss": 0.034924947502964425,
+      "mae_deg": 5.051815986633301,
+      "median_ae_deg": 1.61087965965271,
+      "rmse_deg": 23.14957046508789,
+      "axial_mae_deg": 2.135406255722046,
+      "acc15_deg": 98.01379442214966,
+      "acc30_deg": 98.26151132583618,
+      "acc45_deg": 98.2980489730835
+    },
+    "mobilenetv4_conv_medium": {
+      "loss": 0.03426791035119016,
+      "mae_deg": 4.97118616104126,
+      "median_ae_deg": 1.5904731750488281,
+      "rmse_deg": 22.958669662475586,
+      "axial_mae_deg": 2.100170373916626,
+      "acc15_deg": 98.04854393005371,
+      "acc30_deg": 98.29715490341187,
+      "acc45_deg": 98.33279848098755
+    }
+  },
+  "failed_models": [],
+  "config": {
+    "models": [
+      "resnet18",
+      "resnet50",
+      "convnext_tiny",
+      "mobilenetv4_conv_medium"
+    ],
+    "epochs": 15,
+    "batch_size": 256,
+    "image_size": 224,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "pretrained": true,
+    "use_amp": true,
+    "rotation_augment": false,
+    "axial_labels": false,
+    "split_strategy": "trajectory",
+    "seed": 42,
+    "data_dir": "/scratch/cvcdt011/data",
+    "crops_subdir": "crops_after_manual_removal/80",
+    "expected_crop_size": 80
+  }
+}

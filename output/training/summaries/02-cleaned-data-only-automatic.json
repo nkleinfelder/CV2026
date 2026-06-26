@@ -1,0 +1,66 @@
+{
+  "best_model": "mobilenetv4_conv_medium",
+  "test_metrics": {
+    "convnext_tiny": {
+      "loss": 0.08314404647177127,
+      "mae_deg": 10.620388984680176,
+      "median_ae_deg": 2.1849365234375,
+      "rmse_deg": 31.74358367919922,
+      "axial_mae_deg": 6.109112739562988,
+      "acc15_deg": 88.35219740867615,
+      "acc30_deg": 92.16578602790833,
+      "acc45_deg": 94.31834816932678
+    },
+    "resnet18": {
+      "loss": 0.0927374695304912,
+      "mae_deg": 11.59785270690918,
+      "median_ae_deg": 2.3736956119537354,
+      "rmse_deg": 33.398338317871094,
+      "axial_mae_deg": 6.613561630249023,
+      "acc15_deg": 87.51722574234009,
+      "acc30_deg": 91.25129580497742,
+      "acc45_deg": 93.62870454788208
+    },
+    "resnet50": {
+      "loss": 0.08739877343322755,
+      "mae_deg": 11.018798828125,
+      "median_ae_deg": 2.2766592502593994,
+      "rmse_deg": 32.55406188964844,
+      "axial_mae_deg": 6.263142108917236,
+      "acc15_deg": 88.16779255867004,
+      "acc30_deg": 92.02936887741089,
+      "acc45_deg": 94.07155513763428
+    },
+    "mobilenetv4_conv_medium": {
+      "loss": 0.0781928283965487,
+      "mae_deg": 10.105466842651367,
+      "median_ae_deg": 2.1026053428649902,
+      "rmse_deg": 31.211755752563477,
+      "axial_mae_deg": 5.639592170715332,
+      "acc15_deg": 89.07542824745178,
+      "acc30_deg": 92.8787350654602,
+      "acc45_deg": 94.86608505249023
+    }
+  },
+  "failed_models": [],
+  "config": {
+    "models": [
+      "convnext_tiny",
+      "resnet18",
+      "resnet50",
+      "mobilenetv4_conv_medium"
+    ],
+    "epochs": 15,
+    "batch_size": 256,
+    "image_size": 224,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "pretrained": true,
+    "use_amp": true,
+    "rotation_augment": false,
+    "axial_labels": false,
+    "split_strategy": "trajectory",
+    "seed": 42,
+    "data_dir": "/scratch/cvcdt011/data"
+  }
+}

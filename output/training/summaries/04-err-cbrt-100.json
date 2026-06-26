@@ -1,0 +1,71 @@
+{
+  "best_model": "resnet18",
+  "test_metrics": {
+    "resnet18": {
+      "loss": 0.045170690034099785,
+      "mae_deg": 4.510705947875977,
+      "median_ae_deg": 1.5980321168899536,
+      "rmse_deg": 21.14162826538086,
+      "axial_mae_deg": 2.07854962348938,
+      "acc15_deg": 98.40790033340454,
+      "acc30_deg": 98.57063889503479,
+      "acc45_deg": 98.59869480133057
+    },
+    "resnet50": {
+      "loss": 0.047177741124735294,
+      "mae_deg": 4.708809852600098,
+      "median_ae_deg": 1.7426339387893677,
+      "rmse_deg": 21.35758399963379,
+      "axial_mae_deg": 2.2313694953918457,
+      "acc15_deg": 98.31891655921936,
+      "acc30_deg": 98.54739308357239,
+      "acc45_deg": 98.57544898986816
+    },
+    "convnext_tiny": {
+      "loss": 2.1405587366423138,
+      "mae_deg": 64.27763366699219,
+      "median_ae_deg": 47.030906677246094,
+      "rmse_deg": 84.09537506103516,
+      "axial_mae_deg": 36.07123947143555,
+      "acc15_deg": 24.056243896484375,
+      "acc30_deg": 38.27931582927704,
+      "acc45_deg": 48.55740964412689
+    },
+    "mobilenetv4_conv_medium": {
+      "loss": 0.06420825779794567,
+      "mae_deg": 6.321272850036621,
+      "median_ae_deg": 2.0019969940185547,
+      "rmse_deg": 26.185623168945312,
+      "axial_mae_deg": 2.5869476795196533,
+      "acc15_deg": 97.49560952186584,
+      "acc30_deg": 97.79382944107056,
+      "acc45_deg": 97.82429337501526
+    }
+  },
+  "failed_models": [],
+  "config": {
+    "models": [
+      "resnet18",
+      "resnet50",
+      "convnext_tiny",
+      "mobilenetv4_conv_medium"
+    ],
+    "loss_fn": "cbrt_cos",
+    "epochs": 15,
+    "batch_size": 256,
+    "image_size": 224,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "pretrained": true,
+    "use_amp": true,
+    "rotation_augment": false,
+    "oversample_orientations": false,
+    "oversample_bins": 36,
+    "axial_labels": false,
+    "split_strategy": "trajectory",
+    "seed": 42,
+    "data_dir": "/scratch/cvcdt011/data",
+    "crops_subdir": "crops_after_manual_removal/100",
+    "expected_crop_size": 100
+  }
+}

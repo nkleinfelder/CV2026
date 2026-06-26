@@ -1,0 +1,68 @@
+{
+  "best_model": "mobilenetv4_conv_medium",
+  "test_metrics": {
+    "resnet18": {
+      "loss": 0.015572857349518477,
+      "mae_deg": 3.6995229721069336,
+      "median_ae_deg": 1.9275786876678467,
+      "rmse_deg": 14.700979232788086,
+      "axial_mae_deg": 2.5974502563476562,
+      "acc15_deg": 98.69607090950012,
+      "acc30_deg": 99.18439388275146,
+      "acc45_deg": 99.26232099533081
+    },
+    "resnet50": {
+      "loss": 0.015631548258872422,
+      "mae_deg": 3.6717634201049805,
+      "median_ae_deg": 1.8721822500228882,
+      "rmse_deg": 14.711054801940918,
+      "axial_mae_deg": 2.5723185539245605,
+      "acc15_deg": 98.71944785118103,
+      "acc30_deg": 99.18699264526367,
+      "acc45_deg": 99.24933314323425
+    },
+    "convnext_tiny": {
+      "loss": 0.014318174678036923,
+      "mae_deg": 3.488778829574585,
+      "median_ae_deg": 1.874647855758667,
+      "rmse_deg": 14.332879066467285,
+      "axial_mae_deg": 2.4221789836883545,
+      "acc15_deg": 99.02335405349731,
+      "acc30_deg": 99.2805004119873,
+      "acc45_deg": 99.33764338493347
+    },
+    "mobilenetv4_conv_medium": {
+      "loss": 0.013865778028542672,
+      "mae_deg": 3.1053671836853027,
+      "median_ae_deg": 1.5599333047866821,
+      "rmse_deg": 14.380451202392578,
+      "axial_mae_deg": 2.0038840770721436,
+      "acc15_deg": 99.20777082443237,
+      "acc30_deg": 99.34024214744568,
+      "acc45_deg": 99.35063123703003
+    }
+  },
+  "failed_models": [],
+  "config": {
+    "models": [
+      "resnet18",
+      "resnet50",
+      "convnext_tiny",
+      "mobilenetv4_conv_medium"
+    ],
+    "epochs": 15,
+    "batch_size": 256,
+    "image_size": 224,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "pretrained": true,
+    "use_amp": true,
+    "rotation_augment": false,
+    "axial_labels": false,
+    "split_strategy": "trajectory",
+    "seed": 42,
+    "data_dir": "/scratch/cvcdt011/data",
+    "crops_subdir": "crops_after_manual_removal/100",
+    "expected_crop_size": 100
+  }
+}

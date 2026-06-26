@@ -1,0 +1,71 @@
+{
+  "best_model": "resnet50",
+  "test_metrics": {
+    "resnet18": {
+      "loss": 0.027541826286162294,
+      "mae_deg": 4.365206718444824,
+      "median_ae_deg": 1.5831149816513062,
+      "rmse_deg": 20.612945556640625,
+      "axial_mae_deg": 2.0528182983398438,
+      "acc15_deg": 98.4712302684784,
+      "acc30_deg": 98.65882396697998,
+      "acc45_deg": 98.67966175079346
+    },
+    "resnet50": {
+      "loss": 0.0275108673686638,
+      "mae_deg": 4.350462436676025,
+      "median_ae_deg": 1.5773707628250122,
+      "rmse_deg": 20.6040096282959,
+      "axial_mae_deg": 2.0387802124023438,
+      "acc15_deg": 98.48486185073853,
+      "acc30_deg": 98.65962266921997,
+      "acc45_deg": 98.67966175079346
+    },
+    "convnext_tiny": {
+      "loss": 0.02874450110115875,
+      "mae_deg": 4.607454776763916,
+      "median_ae_deg": 1.7229152917861938,
+      "rmse_deg": 21.015247344970703,
+      "axial_mae_deg": 2.2074344158172607,
+      "acc15_deg": 98.41591715812683,
+      "acc30_deg": 98.60831499099731,
+      "acc45_deg": 98.62515330314636
+    },
+    "mobilenetv4_conv_medium": {
+      "loss": 0.027844275743962203,
+      "mae_deg": 4.416441440582275,
+      "median_ae_deg": 1.6210122108459473,
+      "rmse_deg": 20.7376708984375,
+      "axial_mae_deg": 2.073289632797241,
+      "acc15_deg": 98.49768877029419,
+      "acc30_deg": 98.65000247955322,
+      "acc45_deg": 98.6668348312378
+    }
+  },
+  "failed_models": [],
+  "config": {
+    "models": [
+      "resnet18",
+      "resnet50",
+      "convnext_tiny",
+      "mobilenetv4_conv_medium"
+    ],
+    "loss_fn": "cosine",
+    "epochs": 15,
+    "batch_size": 256,
+    "image_size": 224,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "pretrained": true,
+    "use_amp": true,
+    "rotation_augment": false,
+    "oversample_orientations": true,
+    "oversample_bins": 36,
+    "axial_labels": false,
+    "split_strategy": "trajectory",
+    "seed": 42,
+    "data_dir": "/scratch/cvcdt011/data",
+    "crops_subdir": "crops_after_manual_removal/100",
+    "expected_crop_size": 100
+  }
+}

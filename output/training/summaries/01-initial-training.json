@@ -1,0 +1,55 @@
+{
+  "best_model": "mobilenetv4_conv_medium",
+  "test_metrics": {
+    "resnet18": {
+      "loss": 0.08210891086534267,
+      "mae_deg": 10.89091968536377,
+      "median_ae_deg": 2.641439199447632,
+      "rmse_deg": 29.985891342163086,
+      "axial_mae_deg": 7.321334362030029,
+      "acc15_deg": 87.59061098098755,
+      "acc30_deg": 91.51065349578857,
+      "acc45_deg": 93.81335973739624
+    },
+    "resnet50": {
+      "loss": 0.0870780536853487,
+      "mae_deg": 11.267633438110352,
+      "median_ae_deg": 2.615981340408325,
+      "rmse_deg": 31.277729034423828,
+      "axial_mae_deg": 7.210758686065674,
+      "acc15_deg": 87.54087686538696,
+      "acc30_deg": 91.48272275924683,
+      "acc45_deg": 93.56400966644287
+    },
+    "mobilenetv4_conv_medium": {
+      "loss": 0.08380864690632929,
+      "mae_deg": 10.745535850524902,
+      "median_ae_deg": 2.3566884994506836,
+      "rmse_deg": 30.778417587280273,
+      "axial_mae_deg": 6.781832695007324,
+      "acc15_deg": 88.13222050666809,
+      "acc30_deg": 91.93577170372009,
+      "acc45_deg": 93.82766485214233
+    }
+  },
+  "failed_models": [],
+  "config": {
+    "models": [
+      "resnet18",
+      "resnet50",
+      "mobilenetv4_conv_medium"
+    ],
+    "epochs": 15,
+    "batch_size": 256,
+    "image_size": 224,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "pretrained": true,
+    "use_amp": true,
+    "rotation_augment": false,
+    "axial_labels": false,
+    "split_strategy": "trajectory",
+    "seed": 42,
+    "data_dir": "/scratch/cvcdt011/data"
+  }
+}

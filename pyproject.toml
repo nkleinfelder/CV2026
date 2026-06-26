@@ -1,0 +1,28 @@
+[project]
+name = "cv2026"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "ipython>=9.15.0",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.11.0",
+    "numpy>=2.5.0",
+    "opencv-python>=4.13.0.92",
+    "pandas>=3.0.3",
+    "ruff>=0.15.20",
+    "scikit-learn>=1.9.0",
+    "torch>=2.12.1",
+    "torchvision>=0.27.1",
+    "tqdm>=4.68.4",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# src layout: install src/common and src/simon as top-level packages `common`
+# and `simon` (editable via `uv sync`), so imports need no sys.path tricks.
+[tool.hatch.build.targets.wheel]
+packages = ["src/common", "src/simon"]
