@@ -1,5 +1,13 @@
 # CV2026
 
-## hyper parameter
+## Setting up Symlink (Quota Management)
 
--half_size for preprocessing
+To address storage quota issues, create a symbolic link for your virtual environment:
+
+```bash
+ln -s /scratch/cvcdt011/.venv .venv
+```
+
+## Hyperparameters
+
+- half_size: Used for preprocessing
