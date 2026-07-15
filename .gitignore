@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Training artifacts (written to scratch on the cluster; ignore local strays)
+checkpoints/
+checkpoints_overfit/
+sample_index.csv
