@@ -35,7 +35,10 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
-
+convnext/
+!convnext/train.ipynb
+convnext/train_ddp.py
+convnext/training_history.png
 # Unit test / coverage reports
 htmlcov/
 .tox/
