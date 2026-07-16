@@ -82,7 +82,10 @@ class Config:
 
     # --- input pipeline ---
     image_size: int = 224
-    batch_size: int = 64
+    # Sized for A30 (24 GB) with AMP; small per-GPU batches leave the GPUs
+    # starved by the input pipeline. lr below was chosen at batch 64 — consider
+    # scaling it if you change the batch size substantially.
+    batch_size: int = 256
     num_workers: int = 4
     # Rotation augmentation rotates the patch and adjusts theta accordingly.
     # It assumes theta is measured as atan2(dy, dx) in image coordinates (y pointing
@@ -294,6 +297,7 @@ def make_loaders(
             num_workers=cfg.num_workers,
             pin_memory=True,
             persistent_workers=cfg.num_workers > 0,
+            prefetch_factor=4 if cfg.num_workers > 0 else None,
             drop_last=False,
         )
 

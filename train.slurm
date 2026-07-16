@@ -39,5 +39,5 @@ nvidia-smi -L || true
 exec uv run --no-sync python train.py \
     --data-dir "$DATA_DIR" \
     --checkpoint-dir "$CKPT_DIR" \
-    --num-workers 6
+    --num-workers 12
     # add --frame-size W H if the video isn't readable from the compute node
