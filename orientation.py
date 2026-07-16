@@ -416,9 +416,14 @@ def train_one_epoch(
     cfg: Config,
     desc: str = "train",
     progress: bool = True,
-) -> float:
+) -> dict[str, float]:
+    """Returns the same metric dict as `evaluate`, accumulated from the training
+    batches themselves (so predictions reflect the weights as they evolved over
+    the epoch, not the final weights)."""
     model.train()
     total_loss, n_samples = 0.0, 0
+    trues: list[torch.Tensor] = []
+    preds: list[torch.Tensor] = []
     batches = tqdm(loader, desc=desc, unit="batch", leave=False, disable=not progress)
     for images, targets in batches:
         images = images.to(DEVICE, non_blocking=True)
@@ -432,8 +437,13 @@ def train_one_epoch(
         scaler.update()
         total_loss += loss.item() * images.size(0)
         n_samples += images.size(0)
+        with torch.no_grad():
+            trues.append(angles_from_sincos(targets.float(), cfg).cpu())
+            preds.append(angles_from_sincos(outputs.detach().float(), cfg).cpu())
         batches.set_postfix(loss=f"{total_loss / n_samples:.4f}")
-    return total_loss / n_samples
+    theta_true = torch.cat(trues).numpy()
+    theta_pred = torch.cat(preds).numpy()
+    return {"loss": total_loss / n_samples, **angular_metrics(theta_true, theta_pred, cfg)}
 
 
 @torch.no_grad()
@@ -510,7 +520,7 @@ def train_and_evaluate(
 
     epochs = tqdm(range(1, cfg.epochs + 1), desc=name, unit="epoch", disable=not progress)
     for epoch in epochs:
-        train_loss = train_one_epoch(
+        train_metrics = train_one_epoch(
             model, train_loader, optimizer, criterion, scaler, cfg,
             desc=f"epoch {epoch}/{cfg.epochs} · train", progress=progress,
         )
@@ -520,7 +530,11 @@ def train_and_evaluate(
         )
         scheduler.step()
 
-        history.append({"epoch": epoch, "train_loss": train_loss, **{f"val_{k}": v for k, v in val_metrics.items()}})
+        history.append({
+            "epoch": epoch,
+            **{f"train_{k}": v for k, v in train_metrics.items()},
+            **{f"val_{k}": v for k, v in val_metrics.items()},
+        })
         pd.DataFrame(history).to_csv(history_path, index=False)
 
         marker = ""
@@ -529,7 +543,7 @@ def train_and_evaluate(
             torch.save(unwrap(model).state_dict(), checkpoint_path)
             marker = "  *"
         epochs.set_postfix(
-            train_loss=f"{train_loss:.4f}",
+            train_loss=f"{train_metrics['loss']:.4f}",
             val_loss=f"{val_metrics['loss']:.4f}",
             val_mae=f"{val_metrics['mae_deg']:.2f}°",
             best=f"{best_val_mae:.2f}°",
@@ -537,7 +551,8 @@ def train_and_evaluate(
         # One clean line per epoch — survives non-TTY (SLURM) logs where the bars
         # above are disabled.
         print(
-            f"epoch {epoch:3d} | train loss {train_loss:.4f} | "
+            f"epoch {epoch:3d} | train loss {train_metrics['loss']:.4f} | "
+            f"train MAE {train_metrics['mae_deg']:6.2f}° | "
             f"val loss {val_metrics['loss']:.4f} | val MAE {val_metrics['mae_deg']:6.2f}°{marker}",
             flush=True,
         )
