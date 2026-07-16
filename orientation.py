@@ -434,17 +434,23 @@ def train_one_epoch(
     # pipeline is distinguishable from a silent-but-running epoch.
     log_every = 20
     epoch_start = time.perf_counter()
+    # Rate over the window since the last log line, not since epoch start —
+    # a cumulative average is dragged down by worker startup for hundreds of
+    # batches and hides whether throughput has actually stabilized.
+    window_start, window_samples = epoch_start, 0
     batches = tqdm(loader, desc=desc, unit="batch", leave=False, disable=not progress)
     for batch_idx, (images, targets) in enumerate(batches):
         if not progress and (batch_idx == 0 or (batch_idx + 1) % log_every == 0):
-            elapsed = time.perf_counter() - epoch_start
+            now = time.perf_counter()
             done = batch_idx + 1
             if batch_idx == 0:
-                print(f"  {desc}: first batch after {elapsed:.1f}s", flush=True)
+                print(f"  {desc}: first batch after {now - epoch_start:.1f}s", flush=True)
             else:
+                rate = (n_samples - window_samples) / (now - window_start)
                 print(f"  {desc}: batch {done}/{len(loader)} | "
-                      f"{n_samples / elapsed:.0f} img/s | "
+                      f"{rate:.0f} img/s | "
                       f"loss {total_loss / n_samples:.4f}", flush=True)
+            window_start, window_samples = now, n_samples
         images = images.to(DEVICE, non_blocking=True)
         targets = targets.to(DEVICE, non_blocking=True)
         optimizer.zero_grad(set_to_none=True)
