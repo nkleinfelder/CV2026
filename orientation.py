@@ -22,6 +22,7 @@ import json
 import math
 import os
 import random
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
@@ -428,8 +429,22 @@ def train_one_epoch(
     total_loss, n_samples = 0.0, 0
     trues: list[torch.Tensor] = []
     preds: list[torch.Tensor] = []
+    # Plain prints survive piping to tee / SLURM logs, where tqdm is disabled
+    # (stderr is not a tty there). Log the first batch so a stalled input
+    # pipeline is distinguishable from a silent-but-running epoch.
+    log_every = 20
+    epoch_start = time.perf_counter()
     batches = tqdm(loader, desc=desc, unit="batch", leave=False, disable=not progress)
-    for images, targets in batches:
+    for batch_idx, (images, targets) in enumerate(batches):
+        if not progress and (batch_idx == 0 or (batch_idx + 1) % log_every == 0):
+            elapsed = time.perf_counter() - epoch_start
+            done = batch_idx + 1
+            if batch_idx == 0:
+                print(f"  {desc}: first batch after {elapsed:.1f}s", flush=True)
+            else:
+                print(f"  {desc}: batch {done}/{len(loader)} | "
+                      f"{n_samples / elapsed:.0f} img/s | "
+                      f"loss {total_loss / n_samples:.4f}", flush=True)
         images = images.to(DEVICE, non_blocking=True)
         targets = targets.to(DEVICE, non_blocking=True)
         optimizer.zero_grad(set_to_none=True)
